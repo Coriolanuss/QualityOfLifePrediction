@@ -1,0 +1,83 @@
+﻿<Window x:Class="QualityOfLifePrediction.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:QualityOfLifePrediction"
+        xmlns:oxy="http://oxyplot.org/wpf"
+        mc:Ignorable="d"
+        Title="Прогнозування якості життя" Height="516.995" Width="719.398">
+    <Window.DataContext>
+        <local:MainViewModel/>
+    </Window.DataContext>
+    <Grid>
+        <Menu x:Name="menu" HorizontalAlignment="Left" Height="20" Margin="0,0,0,0" VerticalAlignment="Top" Width="710">
+            <MenuItem Header="Файл">
+                <MenuItem Header="Експорт із Excel..."></MenuItem>
+                <MenuItem Header="Підключитися до бази даних..."></MenuItem>
+                <Separator></Separator>
+                <MenuItem Header="Зберегти"></MenuItem>
+                <MenuItem Header="Згенерувати звіт..."></MenuItem>
+                <Separator></Separator>
+                <MenuItem Header="Вихід"></MenuItem>
+            </MenuItem>
+            <MenuItem Header="Довідка"/>
+        </Menu>
+        <TabControl x:Name="tabControl" SelectionChanged="tabControl_SelectionChanged" Margin="0,20,0,0">
+            <TabItem x:Name="DataTab" Header="Статистика">
+                <Grid>
+                    <ComboBox x:Name="countryDataComboBox" HorizontalAlignment="Left" Margin="143,12,0,0" VerticalAlignment="Top" Width="154" IsEditable="True" SelectionChanged="countryDataComboBox_SelectionChanged"/>
+                    <DataGrid x:Name="dataGrid" Margin="10,103,10,10" SelectionChanged="dataGrid_SelectionChanged"/>
+                    <Label x:Name="label" Content="Виберіть Індикатор" HorizontalAlignment="Left" Margin="10,41,0,0" VerticalAlignment="Top"/>
+                    <Label x:Name="label1" Content="Виберіть Джерело" HorizontalAlignment="Left" Margin="10,72,0,0" VerticalAlignment="Top"/>
+                    <ComboBox x:Name="sourceComboBox" HorizontalAlignment="Left" Margin="143,74,0,0" VerticalAlignment="Top" Width="552" IsEditable="True" IsEnabled="False" SelectionChanged="sourceComboBox_SelectionChanged"/>
+                    <Label x:Name="label2" Content="Виберіть Країну" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top"/>
+                    <ComboBox x:Name="indicatorComboBox" HorizontalAlignment="Left" Margin="143,43,0,0" VerticalAlignment="Top" Width="552" IsEditable="True" IsEnabled="False" SelectionChanged="indicatorComboBox_SelectionChanged"/>
+                </Grid>
+            </TabItem>
+            <TabItem x:Name="ForecastingTab" Header="Прогнозування">
+                <Grid>
+                    <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="0,0,213,0">
+                        <oxy:PlotView x:Name="ForecastPlotView" Model="{Binding Model}"/>
+                    </Grid>
+                    <Grid HorizontalAlignment="Right" Width="213">
+                        <Label x:Name="label3" Content="Прогноз на n років" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="5,2,0,0"/>
+                        <ComboBox x:Name="comboBox" HorizontalAlignment="Left" VerticalAlignment="Top" Width="55" SelectedIndex="2" Margin="126,4,0,0">
+                            <ComboBoxItem Content="1"/>
+                            <ComboBoxItem Content="2"/>
+                            <ComboBoxItem Content="3"/>
+                            <ComboBoxItem Content="4"/>
+                            <ComboBoxItem Content="5"/>
+                        </ComboBox>
+                        <CheckBox x:Name="checkBox" Content="Метод Брауна" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="7,36,0,0" IsChecked="True"/>
+                        <CheckBox x:Name="checkBox2" Content="Метод Шоуна" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="7,61,0,0" IsChecked="True"/>
+                        <TextBox x:Name="textBox" HorizontalAlignment="Left" Height="20" Margin="175,34,0,0" TextWrapping="Wrap" Text="0.5" VerticalAlignment="Top" Width="28"/>
+                        <Label x:Name="label4" Content="Gamma" HorizontalAlignment="Left" Margin="124,30,0,0" VerticalAlignment="Top"/>
+                        <Label x:Name="label5" Content="Alpha" HorizontalAlignment="Left" Margin="126,56,0,0" VerticalAlignment="Top"/>
+                        <TextBox x:Name="textBox_Copy" HorizontalAlignment="Left" Height="20" Margin="175,59,0,0" TextWrapping="Wrap" Text="0.3" VerticalAlignment="Top" Width="28"/>
+                        <GroupBox x:Name="groupBox" Header="Похибка методу Шоуна" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="213" Height="172" >
+                            <Grid>
+                                <TextBox x:Name="ShownMADtextBox" HorizontalAlignment="Left" Height="23" Margin="113,29,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="78" IsReadOnly="True"/>
+                                <TextBlock x:Name="textBlock" HorizontalAlignment="Left" Margin="10,10,0,0" TextWrapping="Wrap" Text="Середнє абсолютне відхилення (MAD)" VerticalAlignment="Top" Width="171"/>
+                                <TextBlock x:Name="textBlock1" HorizontalAlignment="Left" Margin="10,57,0,0" TextWrapping="Wrap" Text="Середньоквадратична помилка (MSE)" VerticalAlignment="Top" Width="162"/>
+                                <TextBox x:Name="ShownMSEtextBox" HorizontalAlignment="Left" Height="23" Margin="113,78,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="78" IsReadOnly="True"/>
+                                <TextBlock x:Name="textBlock2" HorizontalAlignment="Left" Margin="10,103,0,0" TextWrapping="Wrap" Text="Середня абсолютна помилка у відсотках (MAPE)" VerticalAlignment="Top" Width="162"/>
+                                <TextBox x:Name="ShownMAPEtextBox" HorizontalAlignment="Left" Height="23" Margin="113,124,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="78" IsReadOnly="True"/>
+                            </Grid>
+                        </GroupBox>
+                        <GroupBox x:Name="BrownGroupBox" Header="Похибка методу Брауна" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="213" Height="172" Margin="0,0,0,172" >
+                            <Grid>
+                                <TextBox x:Name="BrownMADtextBox" HorizontalAlignment="Left" Height="23" Margin="113,29,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="78" IsReadOnly="True"/>
+                                <TextBlock x:Name="BrowntextBlock" HorizontalAlignment="Left" Margin="10,10,0,0" TextWrapping="Wrap" Text="Середнє абсолютне відхилення (MAD)" VerticalAlignment="Top" Width="171"/>
+                                <TextBlock x:Name="BrowntextBlock1" HorizontalAlignment="Left" Margin="10,57,0,0" TextWrapping="Wrap" Text="Середньоквадратична помилка (MSE)" VerticalAlignment="Top" Width="162"/>
+                                <TextBox x:Name="BrownMSEtextBox" HorizontalAlignment="Left" Height="23" Margin="113,78,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="78" IsReadOnly="True"/>
+                                <TextBlock x:Name="BrowntextBlock2" HorizontalAlignment="Left" Margin="10,103,0,0" TextWrapping="Wrap" Text="Середня абсолютна помилка у відсотках (MAPE)" VerticalAlignment="Top" Width="162"/>
+                                <TextBox x:Name="BrownMAPEtextBox" HorizontalAlignment="Left" Height="23" Margin="113,124,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="78" IsReadOnly="True"/>
+                            </Grid>
+                        </GroupBox>
+                    </Grid>
+                </Grid>
+            </TabItem>
+        </TabControl>
+    </Grid>
+</Window>

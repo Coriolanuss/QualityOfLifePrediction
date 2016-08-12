@@ -1,0 +1,921 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="QualityOfLife_StatisticsModel.Store" Provider="System.Data.SQLite.EF6" ProviderManifestToken="data source=&quot;C:\Users\neizv\Documents\Visual Studio 2015\Projects\QualityOfLifePrediction\QualityOfLifePrediction\Data\QualityOfLife_Statistics.sqlite&quot;" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Country">
+          <Key>
+            <PropertyRef Name="Country_ID" />
+          </Key>
+          <Property Name="Country_ID" Type="integer" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
+          <Property Name="Code" Type="nvarchar" MaxLength="2147483647" />
+          <Property Name="Note" Type="nvarchar" MaxLength="2147483647" />
+          <Property Name="Region_ID" Type="integer" />
+          <Property Name="IncomeGroup_ID" Type="integer" />
+        </EntityType>
+        <EntityType Name="Data">
+          <Key>
+            <PropertyRef Name="Data_ID" />
+            <PropertyRef Name="DataSet_ID" />
+          </Key>
+          <Property Name="Data_ID" Type="integer" Nullable="false" />
+          <Property Name="DataSet_ID" Type="integer" Nullable="false" />
+          <Property Name="Date" Type="integer" Nullable="false" />
+          <Property Name="Value" Type="real" Nullable="false" />
+        </EntityType>
+        <EntityType Name="DataModels">
+          <Key>
+            <PropertyRef Name="DataModel_ID" />
+          </Key>
+          <Property Name="DataModel_ID" Type="integer" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
+        </EntityType>
+        <EntityType Name="DataSets">
+          <Key>
+            <PropertyRef Name="DataSet_ID" />
+          </Key>
+          <Property Name="DataSet_ID" Type="integer" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Indicator_ID" Type="integer" Nullable="false" />
+          <Property Name="DataSource_ID" Type="integer" Nullable="false" />
+          <Property Name="Country_ID" Type="integer" Nullable="false" />
+        </EntityType>
+        <EntityType Name="DataSources">
+          <Key>
+            <PropertyRef Name="DataSource_ID" />
+          </Key>
+          <Property Name="DataSource_ID" Type="integer" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Note" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
+          <Property Name="Organization_ID" Type="integer" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ForecastData">
+          <Key>
+            <PropertyRef Name="ForecastData_ID" />
+          </Key>
+          <Property Name="ForecastData_ID" Type="integer" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ForecastDataSet_ID" Type="integer" Nullable="false" />
+          <Property Name="Date" Type="integer" Nullable="false" />
+          <Property Name="Value" Type="integer" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ForecastDataSets">
+          <Key>
+            <PropertyRef Name="ForecastDataSet_ID" />
+          </Key>
+          <Property Name="ForecastDataSet_ID" Type="integer" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="DataSet_ID" Type="integer" Nullable="false" />
+          <Property Name="ForecastingMethod_ID" Type="integer" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ForecastFarnesses">
+          <Key>
+            <PropertyRef Name="ForecastFarness_ID" />
+          </Key>
+          <Property Name="ForecastFarness_ID" Type="integer" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ForecastingMethods">
+          <Key>
+            <PropertyRef Name="ForecastingMethod_ID" />
+          </Key>
+          <Property Name="ForecastingMethod_ID" Type="integer" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
+          <Property Name="Note" Type="nvarchar" MaxLength="2147483647" />
+        </EntityType>
+        <EntityType Name="ForecastingMethodsByModelTypes">
+          <Key>
+            <PropertyRef Name="DataModel_ID" />
+            <PropertyRef Name="ForecastingMethod_ID" />
+          </Key>
+          <Property Name="DataModel_ID" Type="integer" Nullable="false" />
+          <Property Name="ForecastingMethod_ID" Type="integer" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ForecastMethodsByFarness">
+          <Key>
+            <PropertyRef Name="ForecastFarness_ID" />
+            <PropertyRef Name="ForecastingMethod_ID" />
+          </Key>
+          <Property Name="ForecastFarness_ID" Type="integer" Nullable="false" />
+          <Property Name="ForecastingMethod_ID" Type="integer" Nullable="false" />
+        </EntityType>
+        <EntityType Name="IncomeGroups">
+          <Key>
+            <PropertyRef Name="IncomeGroup_ID" />
+          </Key>
+          <Property Name="IncomeGroup_ID" Type="integer" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Indicators">
+          <Key>
+            <PropertyRef Name="Indicator_ID" />
+          </Key>
+          <Property Name="Indicator_ID" Type="integer" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
+          <Property Name="Code" Type="nvarchar" MaxLength="2147483647" />
+          <Property Name="Unit_ID" Type="integer" />
+        </EntityType>
+        <EntityType Name="Organizations">
+          <Key>
+            <PropertyRef Name="Organization_ID" />
+          </Key>
+          <Property Name="Organization_ID" Type="integer" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Regions">
+          <Key>
+            <PropertyRef Name="Region_ID" />
+          </Key>
+          <Property Name="Region_ID" Type="integer" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Units">
+          <Key>
+            <PropertyRef Name="Unit_ID" />
+          </Key>
+          <Property Name="Unit_ID" Type="integer" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_Country_0_0">
+          <End Role="IncomeGroups" Type="Self.IncomeGroups" Multiplicity="0..1" />
+          <End Role="Country" Type="Self.Country" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="IncomeGroups">
+              <PropertyRef Name="IncomeGroup_ID" />
+            </Principal>
+            <Dependent Role="Country">
+              <PropertyRef Name="IncomeGroup_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Country_1_0">
+          <End Role="Regions" Type="Self.Regions" Multiplicity="0..1" />
+          <End Role="Country" Type="Self.Country" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Regions">
+              <PropertyRef Name="Region_ID" />
+            </Principal>
+            <Dependent Role="Country">
+              <PropertyRef Name="Region_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Data_0_0">
+          <End Role="DataSets" Type="Self.DataSets" Multiplicity="1" />
+          <End Role="Data" Type="Self.Data" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DataSets">
+              <PropertyRef Name="DataSet_ID" />
+            </Principal>
+            <Dependent Role="Data">
+              <PropertyRef Name="DataSet_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DataSets_0_0">
+          <End Role="Country" Type="Self.Country" Multiplicity="1" />
+          <End Role="DataSets" Type="Self.DataSets" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Country">
+              <PropertyRef Name="Country_ID" />
+            </Principal>
+            <Dependent Role="DataSets">
+              <PropertyRef Name="Country_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DataSets_1_0">
+          <End Role="DataSources" Type="Self.DataSources" Multiplicity="1" />
+          <End Role="DataSets" Type="Self.DataSets" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DataSources">
+              <PropertyRef Name="DataSource_ID" />
+            </Principal>
+            <Dependent Role="DataSets">
+              <PropertyRef Name="DataSource_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DataSets_2_0">
+          <End Role="Indicators" Type="Self.Indicators" Multiplicity="1" />
+          <End Role="DataSets" Type="Self.DataSets" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Indicators">
+              <PropertyRef Name="Indicator_ID" />
+            </Principal>
+            <Dependent Role="DataSets">
+              <PropertyRef Name="Indicator_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DataSources_0_0">
+          <End Role="Organizations" Type="Self.Organizations" Multiplicity="1" />
+          <End Role="DataSources" Type="Self.DataSources" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Organizations">
+              <PropertyRef Name="Organization_ID" />
+            </Principal>
+            <Dependent Role="DataSources">
+              <PropertyRef Name="Organization_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ForecastData_0_0">
+          <End Role="ForecastDataSets" Type="Self.ForecastDataSets" Multiplicity="1" />
+          <End Role="ForecastData" Type="Self.ForecastData" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ForecastDataSets">
+              <PropertyRef Name="ForecastDataSet_ID" />
+            </Principal>
+            <Dependent Role="ForecastData">
+              <PropertyRef Name="ForecastDataSet_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ForecastDataSets_0_0">
+          <End Role="ForecastingMethods" Type="Self.ForecastingMethods" Multiplicity="1" />
+          <End Role="ForecastDataSets" Type="Self.ForecastDataSets" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ForecastingMethods">
+              <PropertyRef Name="ForecastingMethod_ID" />
+            </Principal>
+            <Dependent Role="ForecastDataSets">
+              <PropertyRef Name="ForecastingMethod_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ForecastDataSets_1_0">
+          <End Role="DataSets" Type="Self.DataSets" Multiplicity="1" />
+          <End Role="ForecastDataSets" Type="Self.ForecastDataSets" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DataSets">
+              <PropertyRef Name="DataSet_ID" />
+            </Principal>
+            <Dependent Role="ForecastDataSets">
+              <PropertyRef Name="DataSet_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ForecastingMethodsByModelTypes_0_0">
+          <End Role="ForecastingMethods" Type="Self.ForecastingMethods" Multiplicity="1" />
+          <End Role="ForecastingMethodsByModelTypes" Type="Self.ForecastingMethodsByModelTypes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ForecastingMethods">
+              <PropertyRef Name="ForecastingMethod_ID" />
+            </Principal>
+            <Dependent Role="ForecastingMethodsByModelTypes">
+              <PropertyRef Name="ForecastingMethod_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ForecastingMethodsByModelTypes_1_0">
+          <End Role="DataModels" Type="Self.DataModels" Multiplicity="1" />
+          <End Role="ForecastingMethodsByModelTypes" Type="Self.ForecastingMethodsByModelTypes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DataModels">
+              <PropertyRef Name="DataModel_ID" />
+            </Principal>
+            <Dependent Role="ForecastingMethodsByModelTypes">
+              <PropertyRef Name="DataModel_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ForecastMethodsByFarness_0_0">
+          <End Role="ForecastingMethods" Type="Self.ForecastingMethods" Multiplicity="1" />
+          <End Role="ForecastMethodsByFarness" Type="Self.ForecastMethodsByFarness" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ForecastingMethods">
+              <PropertyRef Name="ForecastingMethod_ID" />
+            </Principal>
+            <Dependent Role="ForecastMethodsByFarness">
+              <PropertyRef Name="ForecastingMethod_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ForecastMethodsByFarness_1_0">
+          <End Role="ForecastFarnesses" Type="Self.ForecastFarnesses" Multiplicity="1" />
+          <End Role="ForecastMethodsByFarness" Type="Self.ForecastMethodsByFarness" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ForecastFarnesses">
+              <PropertyRef Name="ForecastFarness_ID" />
+            </Principal>
+            <Dependent Role="ForecastMethodsByFarness">
+              <PropertyRef Name="ForecastFarness_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Indicators_0_0">
+          <End Role="Units" Type="Self.Units" Multiplicity="0..1" />
+          <End Role="Indicators" Type="Self.Indicators" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Units">
+              <PropertyRef Name="Unit_ID" />
+            </Principal>
+            <Dependent Role="Indicators">
+              <PropertyRef Name="Unit_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="QualityOfLife_StatisticsModelStoreContainer">
+          <EntitySet Name="Country" EntityType="Self.Country" store:Type="Tables" />
+          <EntitySet Name="Data" EntityType="Self.Data" store:Type="Tables" />
+          <EntitySet Name="DataModels" EntityType="Self.DataModels" store:Type="Tables" />
+          <EntitySet Name="DataSets" EntityType="Self.DataSets" store:Type="Tables" />
+          <EntitySet Name="DataSources" EntityType="Self.DataSources" store:Type="Tables" />
+          <EntitySet Name="ForecastData" EntityType="Self.ForecastData" store:Type="Tables" />
+          <EntitySet Name="ForecastDataSets" EntityType="Self.ForecastDataSets" store:Type="Tables" />
+          <EntitySet Name="ForecastFarnesses" EntityType="Self.ForecastFarnesses" store:Type="Tables" />
+          <EntitySet Name="ForecastingMethods" EntityType="Self.ForecastingMethods" store:Type="Tables" />
+          <EntitySet Name="ForecastingMethodsByModelTypes" EntityType="Self.ForecastingMethodsByModelTypes" store:Type="Tables" />
+          <EntitySet Name="ForecastMethodsByFarness" EntityType="Self.ForecastMethodsByFarness" store:Type="Tables" />
+          <EntitySet Name="IncomeGroups" EntityType="Self.IncomeGroups" store:Type="Tables" />
+          <EntitySet Name="Indicators" EntityType="Self.Indicators" store:Type="Tables" />
+          <EntitySet Name="Organizations" EntityType="Self.Organizations" store:Type="Tables" />
+          <EntitySet Name="Regions" EntityType="Self.Regions" store:Type="Tables" />
+          <EntitySet Name="Units" EntityType="Self.Units" store:Type="Tables" />
+          <AssociationSet Name="FK_Country_0_0" Association="Self.FK_Country_0_0">
+            <End Role="IncomeGroups" EntitySet="IncomeGroups" />
+            <End Role="Country" EntitySet="Country" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Country_1_0" Association="Self.FK_Country_1_0">
+            <End Role="Regions" EntitySet="Regions" />
+            <End Role="Country" EntitySet="Country" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Data_0_0" Association="Self.FK_Data_0_0">
+            <End Role="DataSets" EntitySet="DataSets" />
+            <End Role="Data" EntitySet="Data" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DataSets_0_0" Association="Self.FK_DataSets_0_0">
+            <End Role="Country" EntitySet="Country" />
+            <End Role="DataSets" EntitySet="DataSets" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DataSets_1_0" Association="Self.FK_DataSets_1_0">
+            <End Role="DataSources" EntitySet="DataSources" />
+            <End Role="DataSets" EntitySet="DataSets" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DataSets_2_0" Association="Self.FK_DataSets_2_0">
+            <End Role="Indicators" EntitySet="Indicators" />
+            <End Role="DataSets" EntitySet="DataSets" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DataSources_0_0" Association="Self.FK_DataSources_0_0">
+            <End Role="Organizations" EntitySet="Organizations" />
+            <End Role="DataSources" EntitySet="DataSources" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ForecastData_0_0" Association="Self.FK_ForecastData_0_0">
+            <End Role="ForecastDataSets" EntitySet="ForecastDataSets" />
+            <End Role="ForecastData" EntitySet="ForecastData" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ForecastDataSets_0_0" Association="Self.FK_ForecastDataSets_0_0">
+            <End Role="ForecastingMethods" EntitySet="ForecastingMethods" />
+            <End Role="ForecastDataSets" EntitySet="ForecastDataSets" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ForecastDataSets_1_0" Association="Self.FK_ForecastDataSets_1_0">
+            <End Role="DataSets" EntitySet="DataSets" />
+            <End Role="ForecastDataSets" EntitySet="ForecastDataSets" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ForecastingMethodsByModelTypes_0_0" Association="Self.FK_ForecastingMethodsByModelTypes_0_0">
+            <End Role="ForecastingMethods" EntitySet="ForecastingMethods" />
+            <End Role="ForecastingMethodsByModelTypes" EntitySet="ForecastingMethodsByModelTypes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ForecastingMethodsByModelTypes_1_0" Association="Self.FK_ForecastingMethodsByModelTypes_1_0">
+            <End Role="DataModels" EntitySet="DataModels" />
+            <End Role="ForecastingMethodsByModelTypes" EntitySet="ForecastingMethodsByModelTypes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ForecastMethodsByFarness_0_0" Association="Self.FK_ForecastMethodsByFarness_0_0">
+            <End Role="ForecastingMethods" EntitySet="ForecastingMethods" />
+            <End Role="ForecastMethodsByFarness" EntitySet="ForecastMethodsByFarness" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ForecastMethodsByFarness_1_0" Association="Self.FK_ForecastMethodsByFarness_1_0">
+            <End Role="ForecastFarnesses" EntitySet="ForecastFarnesses" />
+            <End Role="ForecastMethodsByFarness" EntitySet="ForecastMethodsByFarness" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Indicators_0_0" Association="Self.FK_Indicators_0_0">
+            <End Role="Units" EntitySet="Units" />
+            <End Role="Indicators" EntitySet="Indicators" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="QualityOfLife_StatisticsModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Country">
+          <Key>
+            <PropertyRef Name="Country_ID" />
+          </Key>
+          <Property Name="Country_ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Code" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+          <Property Name="Note" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+          <Property Name="Region_ID" Type="Int64" />
+          <Property Name="IncomeGroup_ID" Type="Int64" />
+          <NavigationProperty Name="IncomeGroup" Relationship="Self.FK_Country_0_0" FromRole="Country" ToRole="IncomeGroups" />
+          <NavigationProperty Name="Region" Relationship="Self.FK_Country_1_0" FromRole="Country" ToRole="Regions" />
+          <NavigationProperty Name="DataSets" Relationship="Self.FK_DataSets_0_0" FromRole="Country" ToRole="DataSets" />
+        </EntityType>
+        <EntityType Name="Datum">
+          <Key>
+            <PropertyRef Name="Data_ID" />
+            <PropertyRef Name="DataSet_ID" />
+          </Key>
+          <Property Name="Data_ID" Type="Int64" Nullable="false" />
+          <Property Name="DataSet_ID" Type="Int64" Nullable="false" />
+          <Property Name="Date" Type="Int64" Nullable="false" />
+          <Property Name="Value" Type="Double" Nullable="false" />
+          <NavigationProperty Name="DataSet" Relationship="Self.FK_Data_0_0" FromRole="Data" ToRole="DataSets" />
+        </EntityType>
+        <EntityType Name="DataModel">
+          <Key>
+            <PropertyRef Name="DataModel_ID" />
+          </Key>
+          <Property Name="DataModel_ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="ForecastingMethods" Relationship="Self.ForecastingMethodsByModelTypes" FromRole="DataModels" ToRole="ForecastingMethods" />
+        </EntityType>
+        <EntityType Name="DataSet">
+          <Key>
+            <PropertyRef Name="DataSet_ID" />
+          </Key>
+          <Property Name="DataSet_ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Indicator_ID" Type="Int64" Nullable="false" />
+          <Property Name="DataSource_ID" Type="Int64" Nullable="false" />
+          <Property Name="Country_ID" Type="Int64" Nullable="false" />
+          <NavigationProperty Name="Country" Relationship="Self.FK_DataSets_0_0" FromRole="DataSets" ToRole="Country" />
+          <NavigationProperty Name="Data" Relationship="Self.FK_Data_0_0" FromRole="DataSets" ToRole="Data" />
+          <NavigationProperty Name="DataSource" Relationship="Self.FK_DataSets_1_0" FromRole="DataSets" ToRole="DataSources" />
+          <NavigationProperty Name="Indicator" Relationship="Self.FK_DataSets_2_0" FromRole="DataSets" ToRole="Indicators" />
+          <NavigationProperty Name="ForecastDataSets" Relationship="Self.FK_ForecastDataSets_1_0" FromRole="DataSets" ToRole="ForecastDataSets" />
+        </EntityType>
+        <EntityType Name="DataSource">
+          <Key>
+            <PropertyRef Name="DataSource_ID" />
+          </Key>
+          <Property Name="DataSource_ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Note" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Organization_ID" Type="Int64" Nullable="false" />
+          <NavigationProperty Name="DataSets" Relationship="Self.FK_DataSets_1_0" FromRole="DataSources" ToRole="DataSets" />
+          <NavigationProperty Name="Organization" Relationship="Self.FK_DataSources_0_0" FromRole="DataSources" ToRole="Organizations" />
+        </EntityType>
+        <EntityType Name="ForecastData">
+          <Key>
+            <PropertyRef Name="ForecastData_ID" />
+          </Key>
+          <Property Name="ForecastData_ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ForecastDataSet_ID" Type="Int64" Nullable="false" />
+          <Property Name="Date" Type="Int64" Nullable="false" />
+          <Property Name="Value" Type="Int64" Nullable="false" />
+          <NavigationProperty Name="ForecastDataSet" Relationship="Self.FK_ForecastData_0_0" FromRole="ForecastData" ToRole="ForecastDataSets" />
+        </EntityType>
+        <EntityType Name="ForecastDataSet">
+          <Key>
+            <PropertyRef Name="ForecastDataSet_ID" />
+          </Key>
+          <Property Name="ForecastDataSet_ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DataSet_ID" Type="Int64" Nullable="false" />
+          <Property Name="ForecastingMethod_ID" Type="Int64" Nullable="false" />
+          <NavigationProperty Name="DataSet" Relationship="Self.FK_ForecastDataSets_1_0" FromRole="ForecastDataSets" ToRole="DataSets" />
+          <NavigationProperty Name="ForecastDatas" Relationship="Self.FK_ForecastData_0_0" FromRole="ForecastDataSets" ToRole="ForecastData" />
+          <NavigationProperty Name="ForecastingMethod" Relationship="Self.FK_ForecastDataSets_0_0" FromRole="ForecastDataSets" ToRole="ForecastingMethods" />
+        </EntityType>
+        <EntityType Name="ForecastFarness">
+          <Key>
+            <PropertyRef Name="ForecastFarness_ID" />
+          </Key>
+          <Property Name="ForecastFarness_ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="ForecastingMethods" Relationship="Self.ForecastMethodsByFarness" FromRole="ForecastFarnesses" ToRole="ForecastingMethods" />
+        </EntityType>
+        <EntityType Name="ForecastingMethod">
+          <Key>
+            <PropertyRef Name="ForecastingMethod_ID" />
+          </Key>
+          <Property Name="ForecastingMethod_ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Note" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="ForecastDataSets" Relationship="Self.FK_ForecastDataSets_0_0" FromRole="ForecastingMethods" ToRole="ForecastDataSets" />
+          <NavigationProperty Name="DataModels" Relationship="Self.ForecastingMethodsByModelTypes" FromRole="ForecastingMethods" ToRole="DataModels" />
+          <NavigationProperty Name="ForecastFarnesses" Relationship="Self.ForecastMethodsByFarness" FromRole="ForecastingMethods" ToRole="ForecastFarnesses" />
+        </EntityType>
+        <EntityType Name="IncomeGroup">
+          <Key>
+            <PropertyRef Name="IncomeGroup_ID" />
+          </Key>
+          <Property Name="IncomeGroup_ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Countries" Relationship="Self.FK_Country_0_0" FromRole="IncomeGroups" ToRole="Country" />
+        </EntityType>
+        <EntityType Name="Indicator">
+          <Key>
+            <PropertyRef Name="Indicator_ID" />
+          </Key>
+          <Property Name="Indicator_ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Code" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+          <Property Name="Unit_ID" Type="Int64" />
+          <NavigationProperty Name="DataSets" Relationship="Self.FK_DataSets_2_0" FromRole="Indicators" ToRole="DataSets" />
+          <NavigationProperty Name="Unit" Relationship="Self.FK_Indicators_0_0" FromRole="Indicators" ToRole="Units" />
+        </EntityType>
+        <EntityType Name="Organization">
+          <Key>
+            <PropertyRef Name="Organization_ID" />
+          </Key>
+          <Property Name="Organization_ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="DataSources" Relationship="Self.FK_DataSources_0_0" FromRole="Organizations" ToRole="DataSources" />
+        </EntityType>
+        <EntityType Name="Region">
+          <Key>
+            <PropertyRef Name="Region_ID" />
+          </Key>
+          <Property Name="Region_ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Countries" Relationship="Self.FK_Country_1_0" FromRole="Regions" ToRole="Country" />
+        </EntityType>
+        <EntityType Name="Unit">
+          <Key>
+            <PropertyRef Name="Unit_ID" />
+          </Key>
+          <Property Name="Unit_ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Indicators" Relationship="Self.FK_Indicators_0_0" FromRole="Units" ToRole="Indicators" />
+        </EntityType>
+        <Association Name="FK_Country_0_0">
+          <End Role="IncomeGroups" Type="Self.IncomeGroup" Multiplicity="0..1" />
+          <End Role="Country" Type="Self.Country" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="IncomeGroups">
+              <PropertyRef Name="IncomeGroup_ID" />
+            </Principal>
+            <Dependent Role="Country">
+              <PropertyRef Name="IncomeGroup_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Country_1_0">
+          <End Role="Regions" Type="Self.Region" Multiplicity="0..1" />
+          <End Role="Country" Type="Self.Country" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Regions">
+              <PropertyRef Name="Region_ID" />
+            </Principal>
+            <Dependent Role="Country">
+              <PropertyRef Name="Region_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DataSets_0_0">
+          <End Role="Country" Type="Self.Country" Multiplicity="1" />
+          <End Role="DataSets" Type="Self.DataSet" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Country">
+              <PropertyRef Name="Country_ID" />
+            </Principal>
+            <Dependent Role="DataSets">
+              <PropertyRef Name="Country_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Data_0_0">
+          <End Role="DataSets" Type="Self.DataSet" Multiplicity="1" />
+          <End Role="Data" Type="Self.Datum" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DataSets">
+              <PropertyRef Name="DataSet_ID" />
+            </Principal>
+            <Dependent Role="Data">
+              <PropertyRef Name="DataSet_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DataSets_1_0">
+          <End Role="DataSources" Type="Self.DataSource" Multiplicity="1" />
+          <End Role="DataSets" Type="Self.DataSet" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DataSources">
+              <PropertyRef Name="DataSource_ID" />
+            </Principal>
+            <Dependent Role="DataSets">
+              <PropertyRef Name="DataSource_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DataSets_2_0">
+          <End Role="Indicators" Type="Self.Indicator" Multiplicity="1" />
+          <End Role="DataSets" Type="Self.DataSet" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Indicators">
+              <PropertyRef Name="Indicator_ID" />
+            </Principal>
+            <Dependent Role="DataSets">
+              <PropertyRef Name="Indicator_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ForecastDataSets_1_0">
+          <End Role="DataSets" Type="Self.DataSet" Multiplicity="1" />
+          <End Role="ForecastDataSets" Type="Self.ForecastDataSet" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DataSets">
+              <PropertyRef Name="DataSet_ID" />
+            </Principal>
+            <Dependent Role="ForecastDataSets">
+              <PropertyRef Name="DataSet_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DataSources_0_0">
+          <End Role="Organizations" Type="Self.Organization" Multiplicity="1" />
+          <End Role="DataSources" Type="Self.DataSource" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Organizations">
+              <PropertyRef Name="Organization_ID" />
+            </Principal>
+            <Dependent Role="DataSources">
+              <PropertyRef Name="Organization_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ForecastData_0_0">
+          <End Role="ForecastDataSets" Type="Self.ForecastDataSet" Multiplicity="1" />
+          <End Role="ForecastData" Type="Self.ForecastData" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ForecastDataSets">
+              <PropertyRef Name="ForecastDataSet_ID" />
+            </Principal>
+            <Dependent Role="ForecastData">
+              <PropertyRef Name="ForecastDataSet_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ForecastDataSets_0_0">
+          <End Role="ForecastingMethods" Type="Self.ForecastingMethod" Multiplicity="1" />
+          <End Role="ForecastDataSets" Type="Self.ForecastDataSet" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ForecastingMethods">
+              <PropertyRef Name="ForecastingMethod_ID" />
+            </Principal>
+            <Dependent Role="ForecastDataSets">
+              <PropertyRef Name="ForecastingMethod_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Indicators_0_0">
+          <End Role="Units" Type="Self.Unit" Multiplicity="0..1" />
+          <End Role="Indicators" Type="Self.Indicator" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Units">
+              <PropertyRef Name="Unit_ID" />
+            </Principal>
+            <Dependent Role="Indicators">
+              <PropertyRef Name="Unit_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="ForecastingMethodsByModelTypes">
+          <End Role="ForecastingMethods" Type="Self.ForecastingMethod" Multiplicity="*" />
+          <End Role="DataModels" Type="Self.DataModel" Multiplicity="*" />
+        </Association>
+        <Association Name="ForecastMethodsByFarness">
+          <End Role="ForecastingMethods" Type="Self.ForecastingMethod" Multiplicity="*" />
+          <End Role="ForecastFarnesses" Type="Self.ForecastFarness" Multiplicity="*" />
+        </Association>
+        <EntityContainer Name="QualityOfLife_StatisticsEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Countries" EntityType="Self.Country" />
+          <EntitySet Name="Data" EntityType="Self.Datum" />
+          <EntitySet Name="DataModels" EntityType="Self.DataModel" />
+          <EntitySet Name="DataSets" EntityType="Self.DataSet" />
+          <EntitySet Name="DataSources" EntityType="Self.DataSource" />
+          <EntitySet Name="ForecastDatas" EntityType="Self.ForecastData" />
+          <EntitySet Name="ForecastDataSets" EntityType="Self.ForecastDataSet" />
+          <EntitySet Name="ForecastFarnesses" EntityType="Self.ForecastFarness" />
+          <EntitySet Name="ForecastingMethods" EntityType="Self.ForecastingMethod" />
+          <EntitySet Name="IncomeGroups" EntityType="Self.IncomeGroup" />
+          <EntitySet Name="Indicators" EntityType="Self.Indicator" />
+          <EntitySet Name="Organizations" EntityType="Self.Organization" />
+          <EntitySet Name="Regions" EntityType="Self.Region" />
+          <EntitySet Name="Units" EntityType="Self.Unit" />
+          <AssociationSet Name="FK_Country_0_0" Association="Self.FK_Country_0_0">
+            <End Role="IncomeGroups" EntitySet="IncomeGroups" />
+            <End Role="Country" EntitySet="Countries" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Country_1_0" Association="Self.FK_Country_1_0">
+            <End Role="Regions" EntitySet="Regions" />
+            <End Role="Country" EntitySet="Countries" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DataSets_0_0" Association="Self.FK_DataSets_0_0">
+            <End Role="Country" EntitySet="Countries" />
+            <End Role="DataSets" EntitySet="DataSets" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Data_0_0" Association="Self.FK_Data_0_0">
+            <End Role="DataSets" EntitySet="DataSets" />
+            <End Role="Data" EntitySet="Data" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DataSets_1_0" Association="Self.FK_DataSets_1_0">
+            <End Role="DataSources" EntitySet="DataSources" />
+            <End Role="DataSets" EntitySet="DataSets" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DataSets_2_0" Association="Self.FK_DataSets_2_0">
+            <End Role="Indicators" EntitySet="Indicators" />
+            <End Role="DataSets" EntitySet="DataSets" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ForecastDataSets_1_0" Association="Self.FK_ForecastDataSets_1_0">
+            <End Role="DataSets" EntitySet="DataSets" />
+            <End Role="ForecastDataSets" EntitySet="ForecastDataSets" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DataSources_0_0" Association="Self.FK_DataSources_0_0">
+            <End Role="Organizations" EntitySet="Organizations" />
+            <End Role="DataSources" EntitySet="DataSources" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ForecastData_0_0" Association="Self.FK_ForecastData_0_0">
+            <End Role="ForecastDataSets" EntitySet="ForecastDataSets" />
+            <End Role="ForecastData" EntitySet="ForecastDatas" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ForecastDataSets_0_0" Association="Self.FK_ForecastDataSets_0_0">
+            <End Role="ForecastingMethods" EntitySet="ForecastingMethods" />
+            <End Role="ForecastDataSets" EntitySet="ForecastDataSets" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Indicators_0_0" Association="Self.FK_Indicators_0_0">
+            <End Role="Units" EntitySet="Units" />
+            <End Role="Indicators" EntitySet="Indicators" />
+          </AssociationSet>
+          <AssociationSet Name="ForecastingMethodsByModelTypes" Association="Self.ForecastingMethodsByModelTypes">
+            <End Role="ForecastingMethods" EntitySet="ForecastingMethods" />
+            <End Role="DataModels" EntitySet="DataModels" />
+          </AssociationSet>
+          <AssociationSet Name="ForecastMethodsByFarness" Association="Self.ForecastMethodsByFarness">
+            <End Role="ForecastingMethods" EntitySet="ForecastingMethods" />
+            <End Role="ForecastFarnesses" EntitySet="ForecastFarnesses" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="QualityOfLife_StatisticsModelStoreContainer" CdmEntityContainer="QualityOfLife_StatisticsEntities">
+          <EntitySetMapping Name="Countries">
+            <EntityTypeMapping TypeName="QualityOfLife_StatisticsModel.Country">
+              <MappingFragment StoreEntitySet="Country">
+                <ScalarProperty Name="Country_ID" ColumnName="Country_ID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Code" ColumnName="Code" />
+                <ScalarProperty Name="Note" ColumnName="Note" />
+                <ScalarProperty Name="Region_ID" ColumnName="Region_ID" />
+                <ScalarProperty Name="IncomeGroup_ID" ColumnName="IncomeGroup_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Data">
+            <EntityTypeMapping TypeName="QualityOfLife_StatisticsModel.Datum">
+              <MappingFragment StoreEntitySet="Data">
+                <ScalarProperty Name="Data_ID" ColumnName="Data_ID" />
+                <ScalarProperty Name="DataSet_ID" ColumnName="DataSet_ID" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="Value" ColumnName="Value" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DataModels">
+            <EntityTypeMapping TypeName="QualityOfLife_StatisticsModel.DataModel">
+              <MappingFragment StoreEntitySet="DataModels">
+                <ScalarProperty Name="DataModel_ID" ColumnName="DataModel_ID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DataSets">
+            <EntityTypeMapping TypeName="QualityOfLife_StatisticsModel.DataSet">
+              <MappingFragment StoreEntitySet="DataSets">
+                <ScalarProperty Name="DataSet_ID" ColumnName="DataSet_ID" />
+                <ScalarProperty Name="Indicator_ID" ColumnName="Indicator_ID" />
+                <ScalarProperty Name="DataSource_ID" ColumnName="DataSource_ID" />
+                <ScalarProperty Name="Country_ID" ColumnName="Country_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DataSources">
+            <EntityTypeMapping TypeName="QualityOfLife_StatisticsModel.DataSource">
+              <MappingFragment StoreEntitySet="DataSources">
+                <ScalarProperty Name="DataSource_ID" ColumnName="DataSource_ID" />
+                <ScalarProperty Name="Note" ColumnName="Note" />
+                <ScalarProperty Name="Organization_ID" ColumnName="Organization_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ForecastDatas">
+            <EntityTypeMapping TypeName="QualityOfLife_StatisticsModel.ForecastData">
+              <MappingFragment StoreEntitySet="ForecastData">
+                <ScalarProperty Name="ForecastData_ID" ColumnName="ForecastData_ID" />
+                <ScalarProperty Name="ForecastDataSet_ID" ColumnName="ForecastDataSet_ID" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="Value" ColumnName="Value" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ForecastDataSets">
+            <EntityTypeMapping TypeName="QualityOfLife_StatisticsModel.ForecastDataSet">
+              <MappingFragment StoreEntitySet="ForecastDataSets">
+                <ScalarProperty Name="ForecastDataSet_ID" ColumnName="ForecastDataSet_ID" />
+                <ScalarProperty Name="DataSet_ID" ColumnName="DataSet_ID" />
+                <ScalarProperty Name="ForecastingMethod_ID" ColumnName="ForecastingMethod_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ForecastFarnesses">
+            <EntityTypeMapping TypeName="QualityOfLife_StatisticsModel.ForecastFarness">
+              <MappingFragment StoreEntitySet="ForecastFarnesses">
+                <ScalarProperty Name="ForecastFarness_ID" ColumnName="ForecastFarness_ID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ForecastingMethods">
+            <EntityTypeMapping TypeName="QualityOfLife_StatisticsModel.ForecastingMethod">
+              <MappingFragment StoreEntitySet="ForecastingMethods">
+                <ScalarProperty Name="ForecastingMethod_ID" ColumnName="ForecastingMethod_ID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Note" ColumnName="Note" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="IncomeGroups">
+            <EntityTypeMapping TypeName="QualityOfLife_StatisticsModel.IncomeGroup">
+              <MappingFragment StoreEntitySet="IncomeGroups">
+                <ScalarProperty Name="IncomeGroup_ID" ColumnName="IncomeGroup_ID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Indicators">
+            <EntityTypeMapping TypeName="QualityOfLife_StatisticsModel.Indicator">
+              <MappingFragment StoreEntitySet="Indicators">
+                <ScalarProperty Name="Indicator_ID" ColumnName="Indicator_ID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Code" ColumnName="Code" />
+                <ScalarProperty Name="Unit_ID" ColumnName="Unit_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Organizations">
+            <EntityTypeMapping TypeName="QualityOfLife_StatisticsModel.Organization">
+              <MappingFragment StoreEntitySet="Organizations">
+                <ScalarProperty Name="Organization_ID" ColumnName="Organization_ID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Regions">
+            <EntityTypeMapping TypeName="QualityOfLife_StatisticsModel.Region">
+              <MappingFragment StoreEntitySet="Regions">
+                <ScalarProperty Name="Region_ID" ColumnName="Region_ID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Units">
+            <EntityTypeMapping TypeName="QualityOfLife_StatisticsModel.Unit">
+              <MappingFragment StoreEntitySet="Units">
+                <ScalarProperty Name="Unit_ID" ColumnName="Unit_ID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <AssociationSetMapping Name="ForecastingMethodsByModelTypes" TypeName="QualityOfLife_StatisticsModel.ForecastingMethodsByModelTypes" StoreEntitySet="ForecastingMethodsByModelTypes">
+            <EndProperty Name="ForecastingMethods">
+              <ScalarProperty Name="ForecastingMethod_ID" ColumnName="ForecastingMethod_ID" />
+            </EndProperty>
+            <EndProperty Name="DataModels">
+              <ScalarProperty Name="DataModel_ID" ColumnName="DataModel_ID" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <AssociationSetMapping Name="ForecastMethodsByFarness" TypeName="QualityOfLife_StatisticsModel.ForecastMethodsByFarness" StoreEntitySet="ForecastMethodsByFarness">
+            <EndProperty Name="ForecastingMethods">
+              <ScalarProperty Name="ForecastingMethod_ID" ColumnName="ForecastingMethod_ID" />
+            </EndProperty>
+            <EndProperty Name="ForecastFarnesses">
+              <ScalarProperty Name="ForecastFarness_ID" ColumnName="ForecastFarness_ID" />
+            </EndProperty>
+          </AssociationSetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
